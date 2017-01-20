@@ -63,6 +63,10 @@ ul ul {
 	padding-left: 3vw;
 }
 
+li {
+  padding: 2vh;
+}
+
 nav {
 	position: absolute;
 	right: 2vh;
