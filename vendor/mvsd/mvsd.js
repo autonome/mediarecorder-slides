@@ -79,7 +79,7 @@ function MVSD(slides) {
 		disableAllIframes(slides);
 		enableIframesAtSlide(currentSlide);
 
-		onSlideChange(currentIndex);
+		this.onSlideChange(currentIndex);
 	}
 
 	// FRAGMENTS

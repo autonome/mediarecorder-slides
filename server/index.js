@@ -14,7 +14,7 @@ const express = require("express");
   //app.disable('etag');
 
   // Register static dir
-  app.use('/', express.static('../www'));
+  app.use('/', express.static('../'));
 
   app.listen(httpPort, '0.0.0.0', function() {
     console.log('Web server listening on port ' + httpPort);
