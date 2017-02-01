@@ -40,7 +40,7 @@ function MVSD(slides) {
 		}
 	});
 	
-	this.onSlideChange = function() {}
+	onSlideChange = function() {}
 
 	gotoSlide(readHash() || 1);
 
@@ -79,7 +79,7 @@ function MVSD(slides) {
 		disableAllIframes(slides);
 		enableIframesAtSlide(currentSlide);
 
-		this.onSlideChange(currentIndex);
+		onSlideChange(currentIndex);
 	}
 
 	// FRAGMENTS
