@@ -8,47 +8,51 @@ const express = require("express");
 
 (() => {
 
+  // Data
+  var data = {
+    clients: 0,
+    userAgents: {}
+  };
+
   // Web server
   var app = new express();
+  
+  // Web socket server
+  var wss = new ws.Server({ port: wsPort, clientTracking: true });
 
-  //app.disable('etag');
+	// Implement broadcast
+	wss.broadcast = function broadcast(data) {
+  	wss.clients.forEach(function each(client) {
+    	if (client.readyState === client.OPEN) {
+      	client.send(data);
+    	}
+  	});
+	};
+
+  wss.on('connection', function(conn) {
+    data.clients++;
+    wss.broadcast(JSON.stringify(data));
+  });
+
+  // Upon each new connection, broadcast data to all clients
+  app.use(function(req, res, next) {
+    if (req.url == '/') {
+      var ua = req.headers['user-agent'];
+      if (data.userAgents[ua]) {
+        data.userAgents[ua]++;
+      }
+      else {
+        data.userAgents[ua] = 1;
+      }
+    }
+    next();
+  });
 
   // Register static dir
   app.use('/', express.static('../'));
 
   app.listen(httpPort, '0.0.0.0', function() {
     console.log('Web server listening on port ' + httpPort);
-  });
-  
-  // Web socket server
-  var wss = new ws.Server({ port: wsPort });
-  wss.on('connection', function(conn) {
-
-    // Upon each new connection, message all clients
-    app.use(function(req, res, next) {
-      console.log('ws headers', req.headers);
-
-      conn.send({
-        'headers': req.headers
-      });
-    });
-
-    console.log('sent headers')
-
-    conn.on('message', function(msg) {
-
-      console.log('message received');
-
-      if (msg.blink) {
-
-        // Make stuff blink.
-
-      }
-
-      conn.send('from server');
-
-    });
-
   });
 
   const shutdown = () => {

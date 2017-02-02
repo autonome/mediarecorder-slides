@@ -14,6 +14,7 @@ function onDCL() {
       socket = new WebSocket(socketURL);
 
   socket.onopen = function() {
+    console.log('socket opened')
 
     // ensures binary sends work correctly
     socket.binaryType = "arraybuffer";
@@ -22,7 +23,6 @@ function onDCL() {
     //socket.send(JSON.stringify({ 'firstRun': firstRun }));
 
     socket.onmessage = function(msg) {
-      console.log('ws message!!!')
       var obj = JSON.parse(msg.data);
       console.log('ws message:', obj)
     };
