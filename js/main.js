@@ -3,8 +3,6 @@ window.onload = function() {
   var deck = new MVSD(sections);
 };
 
-var firstRun = localStorage.firstRun || true;
-
 function onDCL() {
 
   // initialize websocket connection
@@ -19,49 +17,73 @@ function onDCL() {
     // ensures binary sends work correctly
     socket.binaryType = "arraybuffer";
 
-    // register with server
-    //socket.send(JSON.stringify({ 'firstRun': firstRun }));
-
     socket.onmessage = function(msg) {
       var obj = JSON.parse(msg.data);
       console.log('ws message:', obj)
+      if (obj.clients != undefined) {
+        updateViewerData(obj);
+      }
     };
   };
 
-  /*
-  // initialize camera source
-  var vid = document.querySelector('#vid');
-  cameraSource.start({
-    videoElement: vid,
-    callback: function() {
-      console.log('videoooo')
+}
+window.addEventListener('DOMContentLoaded', onDCL);
+
+function updateViewerData(data) {
+  console.log('updating data');
+  var bindings = {
+    connected: { selector: '#countConnected', data: 0 },
+    desktop: { selector: '#countDesktop', data: 0 },
+    mobile: { selector: '#countMobile', data: 0 },
+    android: { selector: '#countAndroid', data: 0 },
+    ios: { selector: '#countIOS', data: 0 },
+    other: { selector: '#countOther', data: 0 }
+  };
+
+  bindings.connected.data = data.clients;
+
+  var stats = getUAStats(data.userAgents);
+
+  Object.keys(stats).forEach(function(key) {
+    bindings[key].data = stats[key];
+  });
+
+  Object.keys(bindings).forEach(function(key) {
+    var binding = bindings[key];
+    document.querySelector(binding.selector).innerText = binding.data;
+  });
+}
+
+function getUAStats(data) {
+  var stats = {
+    desktop: 0,
+    mobile: 0,
+    android: 0,
+    ios: 0,
+    other: 0
+  };
+
+  Object.keys(data).forEach(function(ua) {
+    // Mobile vs desktop
+    if (ua.indexOf('Mobi') != -1) {
+      stats.mobile += data[ua];
+    }
+    else {
+      stats.desktop += data[ua];
+    }
+    // Which mobile platform
+    if (ua.indexOf('Android') != -1) {
+      stats.android += data[ua];
+    }
+    // iOS
+    else if (ua.indexOf('Mobile Safari') != -1) {
+      stats.ios += data[ua];
+    }
+    // Other mobile
+    else {
+      stats.other += data[ua];
     }
   });
 
-  var button = document.createElement('button')
-  button.innerText = 'take snapshot'
-  button.addEventListener('click', function() {
-    // uncomment for trashbeaty v1 testing
-    //cameraSource.snapshot();
-
-    cameraSource.snapshotToCanvas(function(canvas) {
-      // local test
-      var img = document.createElement('img')
-      img.src = canvas.toDataURL()
-      document.body.appendChild(img)
-
-      var context = canvas.getContext('2d'),
-          image = context.getImageData(0, 0, canvas.width, canvas.height),
-          buffer = new ArrayBuffer(image.data.length),
-          bytes = new Uint8Array(buffer);
-      for (var i = 0; i < bytes.length; i++) {
-          bytes[i] = image.data[i];
-      }
-      socket.send(buffer);
-    });
-  });
-  document.body.appendChild(button)
-  */
-
+  return stats;
 }
-window.addEventListener('DOMContentLoaded', onDCL);

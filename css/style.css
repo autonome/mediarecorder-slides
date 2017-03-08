@@ -21,7 +21,7 @@ body {
 	font-size: 3vh;
 	font-family: Monospace;
 	color: #000;
-	background: #fff;
+  background: #FCFBF0;
 	line-height: 1;
 }
 
@@ -81,7 +81,7 @@ section {
 	width: 100%;
 	height: 100%;
 	padding: 4vw;
-	background: #fff;
+  background: #FCFBF0;
 }
 
 section.active {
@@ -89,7 +89,6 @@ section.active {
 }
 
 section.intro {
-	background: #efefef;
 	display: flex;
 	flex-flow: column;
 	justify-content: center;
@@ -114,7 +113,12 @@ section.warning {
 
 section.background-image {
 	background-repeat: no-repeat;
-	background-size: cover;
+  background-position: 50% 50%;
+  background-attachent: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 section.mozilla {

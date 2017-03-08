@@ -8,8 +8,8 @@ const express = require("express");
 
 (() => {
 
-  // Data
-  var data = {
+  // Viewer data
+  var stats = {
     clients: 0,
     userAgents: {}
   };
@@ -20,30 +20,47 @@ const express = require("express");
   // Web socket server
   var wss = new ws.Server({ port: wsPort, clientTracking: true });
 
+  function update() {
+    wss.broadcast(JSON.stringify(stats));
+  }
+
 	// Implement broadcast
-	wss.broadcast = function broadcast(data) {
+	wss.broadcast = function broadcast(strMsg) {
   	wss.clients.forEach(function each(client) {
     	if (client.readyState === client.OPEN) {
-      	client.send(data);
+      	client.send(strMsg);
     	}
   	});
 	};
 
   wss.on('connection', function(conn) {
-    data.clients++;
-    wss.broadcast(JSON.stringify(data));
+    update();
+
+    conn.on('message', function incoming(data, flags) {
+      console.log('new message', data);
+      var msg = JSON.parse(data);
+
+      console.log('msg', msg);
+
+      if (msg.firstRun) {
+        stats.clients++;
+      }
+
+      update();
+    });
   });
 
   // Upon each new connection, broadcast data to all clients
   app.use(function(req, res, next) {
-    if (req.url == '/') {
+    if (req.url == '/slides/viewer.html') {
       var ua = req.headers['user-agent'];
-      if (data.userAgents[ua]) {
-        data.userAgents[ua]++;
+      if (stats.userAgents[ua]) {
+        stats.userAgents[ua]++;
       }
       else {
-        data.userAgents[ua] = 1;
+        stats.userAgents[ua] = 1;
       }
+      update();
     }
     next();
   });
