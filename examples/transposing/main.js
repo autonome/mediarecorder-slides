@@ -32,7 +32,7 @@ window.onload = function () {
 			recordSomething();
 		}, 100);
 		
-		setInterval(changeToRandomPitch, randomPitchInterval);
+		//setInterval(changeToRandomPitch, randomPitchInterval);
 
 	});
 };

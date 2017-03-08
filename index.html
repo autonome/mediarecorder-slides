@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-    <title>Preparing for the App-ocalypse - Dietrich Ayala</title>
+    <title>Senses and Sensibility: Creating Physical Experiences with the Web - Dietrich Ayala</title>
     <meta name="description" content="{description}">
 
       <!-- for web -->
@@ -51,8 +51,9 @@
       -->
 
 			<section class="intro">
-				<h1>Preparing for<br />the App-ocalypse</h1>
-				<h2>Dietrich Ayala</h2>
+        <h1>Senses and Sensibility</h1>
+        <h2>Creating Physical Experiences with the Web</h2>
+				<h3>Dietrich Ayala</h3>
 				<h3><a href="https://mozilla.org">Mozilla.org</a> / @dietrich</h3>
 			</section>
 
@@ -62,7 +63,6 @@
       <section class="mozilla splash background-image" data-background="imgs/mozilla-org.png">
       </section>
 
-      <!--
       <section class="zero splash megabig">
         <center><h1>ZERO</h1></center>
         <pre hidden>
@@ -73,8 +73,8 @@
           - NOT Android!
         </pre>
       </section>
-      -->
 
+      <!--
       <section class="openurl">
         <h1>bit.ly/dwmyph</h1>
         <div>
@@ -101,6 +101,7 @@
           </div>
         </div>
       </section>
+      -->
 
       <!--
       <section class="openvsinstall splash">
@@ -144,6 +145,14 @@
       </section>
       -->
 
+      <section class="computing-changing splash">
+        <h1>Computing is changing</h1>
+        <pre hidden>
+          - awareness of physical spaces
+          - integration with physical spaces
+        </pre>
+      </section>
+
       <section class="usecases">
         <ul>
           <li>What is in this room?</li>
@@ -154,11 +163,21 @@
         </ul>
       </section>
 
+      <section class="roomscale splash background-image" data-background="imgs/roomscale.png">
+        <h1>What if rooms</h1>
+        <h1><em>are<em> the computers?</h1>
+        <pre hidden>
+          - walk into a room and it talks back
+        </pre>
+      </section>
+
       <section class="openvsinstall splash">
         <!--
         <h1>Again...</h1>
         -->
         <h1>Open vs Install</h1>
+        <h1>URL vs App</h1>
+        <h1>One click vs ???</h1>
         <pre hidden>
           - easier to get someone to open a URL than to install an app
           - instant content vs multiple steps
@@ -166,13 +185,12 @@
         </pre>
       </section>
 
-      <section class="roomscale splash">
-        <h1>What if rooms</h1>
-        <h1><em>are<em> the computers?</h1>
-        <pre hidden>
-          - walk into a room and it talks back
-        </pre>
-      </section>
+      <!--
+
+        browser icons -> instant wonder
+        app store icons -> hand over your info, everything
+
+      -->
 
       <!--
       <section class="otherwaystoopenurl">
@@ -189,21 +207,29 @@
           - imagine walking into a room and getting a notification with a url
         </pre>
       </section>
-      -->
-
-      <!--
-        - other noises
-        - camera/cv (js toolkits)
-        - presence
-        - flyweb
-        - imagine walking into a room and getting a notification with a url
-        - ar/vr https://twitter.com/dietrich/status/760965267547578369/video/1
-      -->
 
       <section class="qr-nfc splash background-image" data-background="imgs/qr-nfc.png">
-        <h1>QR codes & NFC</h1>
-        <h2>(yeah yeah)</h2>
+        <h1>QR <br> NFC</h1>
       </section>
+
+			<section class="two-rows">
+				<pre>
+					<code class="language-js">
+						var recorder = new MediaRecorder(stream);
+						recorder.addEventListener('dataavailable', e => {
+							video.src = URL.createObjectURL(e.data);
+							video.play();
+						});
+						recorder.start();
+						setTimeout(() => {
+							recorder.stop();
+						}, 5000);
+					</code>
+				</pre>
+				<div>
+					<iframe data-src="examples/record-av.html"></iframe>
+				</div>
+			</section>
 
       <section class="beacons splash background-image" data-background="imgs/beacons.png">
         <h1>Beacons</h1>
@@ -273,7 +299,20 @@
           - presence absence
         </pre>
       </section>
-      -->
+
+      <section class="gum">
+        <h1>Microphone / Camera</h1>
+        <ul>
+          <li>computer vision
+          <li>ambient noise
+          <li>presence / absence
+          <li>cats
+        </ul>
+        <pre hidden>
+          - camera or mic detect walking into a room
+          - projector immediately starts up, or changes content
+        </pre>
+      </section>
 
 			<section>
 				<h2><tt>getUserMedia()</tt></h2>
@@ -289,26 +328,30 @@
 				</pre>
 			</section>
 
-      <section class="gum">
-        <h1>Audio / Camera</h1>
-        <ul>
-          <li>computer vision
-          <li>ambient noise
-          <li>presence / absence
-          <li>cats
-        </ul>
+      <section class="ar-duck">
+        <h1>Augmented Reality</h1>
+          <div>
+            <img style="width: 400px;" src="imgs/duck.png">
+          </div>
         <pre hidden>
-          - camera or mic detect walking into a room
-          - projector immediately starts up, or changes content
         </pre>
       </section>
 
-      <section class="ar-duck template">
+      <section class="ar-web">
         <h1>AR on the Web</h1>
           <div>
             <img src="imgs/qr-ar-duck.png">
-            <img style="width: 400px;" src="imgs/duck.png">
             <div>https://bit.ly/aframe-ar</div>
+          </div>
+        <pre hidden>
+        </pre>
+      </section>
+
+      <section class="ar-gmarty">
+        <h1>AR + CV...</h1>
+          <div>
+            <img src="imgs/ar-gmarty.png">
+            <div>http://gu.illau.me</div>
           </div>
         <pre hidden>
         </pre>
@@ -329,6 +372,7 @@
           - meeting people
         </pre>
       </section>
+      -->
 
       <!--
       <section class="template">
@@ -339,7 +383,7 @@
       -->
 
       <section class="summary">
-        <h1>The new web is integrated</h1>
+        <h1>The New Web</h1>
         <ul>
           <li>bridging platforms
           <li>multisensory input
