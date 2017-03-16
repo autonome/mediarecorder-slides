@@ -121,6 +121,12 @@ section.background-image {
   background-size: cover;
 }
 
+section.background-image-nocover {
+	background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-attachent: fixed;
+}
+
 section.mozilla {
 	color: #fff;
 	background-color: #000;
